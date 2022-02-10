@@ -9,38 +9,43 @@ public class UserCredentials {
     public String password;
     public String name;
 
-    public UserCredentials() {}
+    public UserCredentials() {
+    }
 
-    public UserCredentials (String email, String password, String name) {
+    public UserCredentials(String email, String password, String name) {
         this.email = email;
         this.password = password;
         this.name = name;
     }
 
-    public static UserCredentials from (User user) {
+    public static UserCredentials from(User user) {
         return new UserCredentials(user.email, user.password, user.name);
     }
 
-    public UserCredentials setEmail (String email){
+    public UserCredentials setEmail(String email) {
         this.email = email;
         return this;
     }
-    public UserCredentials setName (String name) {
+
+    public UserCredentials setName(String name) {
         this.name = name;
         return this;
     }
+
     public UserCredentials setPassword(String password) {
         this.password = password;
         return this;
     }
 
-    public static UserCredentials getUserWithEmail (User user) {
+    public static UserCredentials getUserWithEmail(User user) {
         return new UserCredentials().setEmail(user.email);
     }
-    public static UserCredentials getUserWithPassword (User user) {
+
+    public static UserCredentials getUserWithPassword(User user) {
         return new UserCredentials().setPassword(user.password);
     }
-    public static UserCredentials getUserWithName (User user) {
+
+    public static UserCredentials getUserWithName(User user) {
         return new UserCredentials().setName(user.name);
     }
 

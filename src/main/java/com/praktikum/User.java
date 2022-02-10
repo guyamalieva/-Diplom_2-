@@ -51,4 +51,5 @@ public class User {
     public static User getUserWithoutName() {
         return new User().setName(faker.internet().emailAddress()).setPassword(faker.internet().password());
     }
+
 }

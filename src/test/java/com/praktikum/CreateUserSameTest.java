@@ -1,21 +1,30 @@
 package com.praktikum;
+
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.Assert.*;
+
 
 public class CreateUserSameTest {
 
     private User user;
     private UserClient userClient;
+    public String token;
 
     @Before
     public void setUp() {
         user = User.getRandom();
         userClient = new UserClient();
+    }
+
+    @After
+    public void deleteUser() {
+
+        UserClient.delete(token);
     }
 
     @Test
@@ -25,7 +34,7 @@ public class CreateUserSameTest {
         ValidatableResponse response = userClient.create(user);
         int statusCode = response.extract().statusCode();
         boolean isSameUserNotCreated = response.extract().path("message").equals("User already exists");
-        assertThat(statusCode, equalTo(403));
+        assertEquals(statusCode, 403);
         assertTrue("Пользователь уже существует", isSameUserNotCreated);
     }
 }

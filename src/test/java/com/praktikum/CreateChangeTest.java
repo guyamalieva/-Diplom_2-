@@ -3,22 +3,29 @@ package com.praktikum;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.apache.commons.lang3.StringUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.*;
 
 public class CreateChangeTest {
 
     private User user;
     private UserClient userClient;
+    public String accessToken;
 
     @Before
     public void setUp() {
         user = User.getRandom();
         userClient = new UserClient();
         userClient.create(user);
+    }
+
+    @After
+    public void deleteUser() {
+
+        UserClient.delete(accessToken);
     }
 
     @Test
@@ -29,17 +36,17 @@ public class CreateChangeTest {
         ValidatableResponse response = userClient.userInfoChange(accessToken, UserCredentials.getUserCredentials());
         int statusCode = response.extract().statusCode();
         boolean isChangesSuccess = response.extract().path("success");
-        assertThat(statusCode, equalTo(200));
-        assertThat("Информация о пользователе не изменилась", isChangesSuccess);
+        assertEquals(statusCode, 200);
+        assertTrue("Информация о пользователе не изменилась", isChangesSuccess);
     }
 
     @Test
     @DisplayName("Проверка изменения данных без авторизации")
     public void checkCredentialsChangeWithoutAuthTest() {
-        ValidatableResponse response = userClient.userInfoChange( "", UserCredentials.getUserCredentials());
+        ValidatableResponse response = userClient.userInfoChange("", UserCredentials.getUserCredentials());
         int statusCode = response.extract().statusCode();
         boolean isNotChangesSuccess = response.extract().path("message").equals("You should be authorised");
-        assertThat(statusCode, equalTo(401));
-        assertThat("Информация о пользователе изменилась", isNotChangesSuccess);
+        assertEquals(statusCode, 401);
+        assertTrue("Информация о пользователе изменилась", isNotChangesSuccess);
     }
 }

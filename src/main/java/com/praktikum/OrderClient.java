@@ -1,11 +1,14 @@
 package com.praktikum;
 
+import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
+
 import static io.restassured.RestAssured.given;
 
 public class OrderClient extends RestAssuredClient {
     private static final String ORDER_PATH = "api/orders";
 
+    @Step("Создание заказа")
     public ValidatableResponse createOrder(IngredientsData ingredients, String token) {
         return given()
                 .headers("Authorization", token)
@@ -16,6 +19,7 @@ public class OrderClient extends RestAssuredClient {
                 .then();
     }
 
+    @Step("Получение заказа")
     public ValidatableResponse getOrderList(String token) {
         return given()
                 .headers("Authorization", token)

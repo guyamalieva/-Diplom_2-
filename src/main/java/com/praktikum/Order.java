@@ -7,5 +7,4 @@ public class Order {
     public Order(String[] ingredients) {
         this.ingredients = ingredients;
     }
-
 }
