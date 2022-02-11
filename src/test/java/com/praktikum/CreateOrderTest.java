@@ -41,7 +41,7 @@ public class CreateOrderTest {
         int statusCode = response.extract().statusCode();
         boolean isOrderCreation = response.extract().path("success");
         orderClient = response.extract().path("order.number");
-        assertEquals(statusCode, 200);
+        assertEquals(200, statusCode);
         assertTrue("Заказ создан", isOrderCreation);
     }
 
@@ -54,7 +54,7 @@ public class CreateOrderTest {
         int statusCode = response.extract().statusCode();
         boolean isOrderCreationSuccess = response.extract().path("success");
         int orderNumber = response.extract().path("order.number");
-        assertEquals(statusCode, 200);
+        assertEquals(200, statusCode);
         assertTrue("Заказ создан", isOrderCreationSuccess);
     }
 
@@ -66,7 +66,7 @@ public class CreateOrderTest {
         ValidatableResponse response = new OrderClient().createOrder(orderIngredients, token);
         int statusCode = response.extract().statusCode();
         boolean isOrderNotCreated = response.extract().path("message").equals("Ingredient ids must be provided");
-        assertEquals(statusCode, 400);
+        assertEquals(400, statusCode);
         assertTrue("Пустой список ингредиентов", isOrderNotCreated);
     }
 
@@ -77,6 +77,6 @@ public class CreateOrderTest {
         IngredientsData orderIngredients = new IngredientsData("test");
         ValidatableResponse response = new OrderClient().createOrder(orderIngredients, token);
         int statusCode = response.extract().statusCode();
-        assertEquals(statusCode, 500);
+        assertEquals(500, statusCode);
     }
 }

@@ -34,7 +34,7 @@ public class CreateUserSameTest {
         ValidatableResponse response = userClient.create(user);
         int statusCode = response.extract().statusCode();
         boolean isSameUserNotCreated = response.extract().path("message").equals("User already exists");
-        assertEquals(statusCode, 403);
+        assertEquals(403, statusCode);
         assertTrue("Пользователь уже существует", isSameUserNotCreated);
     }
 }

@@ -36,7 +36,7 @@ public class CreateChangeTest {
         ValidatableResponse response = userClient.userInfoChange(accessToken, UserCredentials.getUserCredentials());
         int statusCode = response.extract().statusCode();
         boolean isChangesSuccess = response.extract().path("success");
-        assertEquals(statusCode, 200);
+        assertEquals(200, statusCode);
         assertTrue("Информация о пользователе не изменилась", isChangesSuccess);
     }
 
@@ -46,7 +46,7 @@ public class CreateChangeTest {
         ValidatableResponse response = userClient.userInfoChange("", UserCredentials.getUserCredentials());
         int statusCode = response.extract().statusCode();
         boolean isNotChangesSuccess = response.extract().path("message").equals("You should be authorised");
-        assertEquals(statusCode, 401);
+        assertEquals(401, statusCode);
         assertTrue("Информация о пользователе изменилась", isNotChangesSuccess);
     }
 }

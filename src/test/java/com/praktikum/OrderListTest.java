@@ -43,7 +43,7 @@ public class OrderListTest {
         List<Map<String, String>> orderList = responseList.extract().path("orders");
         int statusCode = responseList.extract().statusCode();
         boolean isOrderCreate = responseList.extract().path("success");
-        assertEquals(statusCode, 200);
+        assertEquals(200, statusCode);
         assertTrue("Заказ не создан", isOrderCreate);
     }
 
@@ -53,7 +53,7 @@ public class OrderListTest {
         ValidatableResponse responseList = orderClient.getOrderList("");
         int statusCode = responseList.extract().statusCode();
         boolean isOrderCreate = responseList.extract().path("message").equals("You should be authorised");
-        assertEquals(statusCode, 401);
+        assertEquals(401, statusCode);
         assertTrue("Заказ не создан", isOrderCreate);
     }
 }
